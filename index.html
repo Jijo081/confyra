@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confyra - Conference Management</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Background Animation Elements -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- ======================= -->
+    <!-- LOGIN PAGE -->
+    <!-- ======================= -->
+    <div id="loginPage" class="auth-wrapper active">
+        <div class="auth-card">
+            <div class="logo-container">
+                <i class="fa-solid fa-globe align-icon glow-icon"></i>
+                <h1 class="logo">CONFYRA</h1>
+            </div>
+
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Log in to enter the portal</p>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="loginId" placeholder="User ID / Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="loginPass" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Login <i
+                        class="fa-solid fa-arrow-right"></i></button>
+            </form>
+
+            <div class="auth-footer">
+                <p>New to Confyra? <span class="link-text" onclick="switchPage('registerPage')">Create an account</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======================= -->
+    <!-- REGISTER PAGE -->
+    <!-- ======================= -->
+    <div id="registerPage" class="auth-wrapper hidden">
+        <div class="auth-card">
+            <div class="logo-container">
+                <i class="fa-solid fa-globe align-icon glow-icon"></i>
+                <h1 class="logo">CONFYRA</h1>
+            </div>
+
+            <h2>Create Account</h2>
+            <p class="subtitle">Create your Author account</p>
+
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <i class="fa-solid fa-id-card"></i>
+                    <input type="text" id="regName" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="regEmail" placeholder="Email Address (Will be User ID)" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="regPass" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-user-tag"></i>
+                    <select id="regRole" required>
+                        <option value="" disabled selected>Select Role...</option>
+                        <option value="author">Author</option>
+                        
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Register <i
+                        class="fa-solid fa-user-plus"></i></button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <span class="link-text" onclick="switchPage('loginPage')">Back to
+                        Login</span></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======================= -->
+    <!-- MAIN APP / HOME PAGE -->
+    <!-- ======================= -->
+    <div id="appPage" class="app-layout hidden">
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header" onclick="goToHome()" style="cursor: pointer;" title="Back to Home">
+                <i class="fa-solid fa-globe glow-icon"></i>
+                <h2>CONFYRA</h2>
+            </div>
+
+            <ul class="nav-links">
+                <li class="active" onclick="showSection('dashboard', this)">
+                    <i class="fa-solid fa-border-all"></i> <span>Dashboard</span>
+                </li>
+                <li onclick="showSection('meeting', this)">
+                    <i class="fa-solid fa-video"></i> <span>Meeting</span>
+                </li>
+                <li onclick="showSection('report', this)">
+                    <i class="fa-solid fa-chart-line"></i> <span>Report</span>
+                </li>
+                <li onclick="showSection('settings', this)">
+                    <i class="fa-solid fa-gear"></i> <span>Settings</span>
+                </li>
+                <li onclick="showSection('help', this)">
+                    <i class="fa-solid fa-circle-info"></i> <span>Help</span>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-mini-profile">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <div class="info">
+                        <span id="navUserName" class="name">User Name</span>
+                        <span id="navUserRole" class="role">Role</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Topbar (Optional / Status) -->
+            <header class="topbar">
+                <h2 id="topbarTitle">Dashboard</h2>
+                <div class="date-display" id="currentDate"></div>
+            </header>
+
+            <div class="content-wrapper">
+
+                <!-- DASHBOARD SECTION -->
+                <section id="dashboardSection" class="content-section active">
+                    <div class="glass-panel" id="dashboardContent">
+                        <!-- Injected dynamically by JS based on role -->
+                    </div>
+                </section>
+
+                <!-- MEETING SECTION -->
+                <section id="meetingSection" class="content-section hidden">
+                    <div class="glass-panel">
+                        <h3 class="section-title"><i class="fa-solid fa-calendar-alt text-purple"></i> Meeting
+                            Management</h3>
+                        <div class="action-cards">
+
+    <div class="action-card">
+        <i class="fa-solid fa-video card-icon"></i>
+        <h4>Create a Meeting</h4>
+        <p>Start an instant conference room now.</p>
+
+        <button type="button"
+                class="btn btn-outline"
+                onclick="createInstantMeeting()">
+            Start Now
+        </button>
+    </div>
+
+    <div class="action-card">
+        <i class="fa-regular fa-calendar-plus card-icon"></i>
+        <h4>Schedule a Meeting</h4>
+        <p>Plan a future meeting and invite attendees.</p>
+
+        <button type="button"
+                class="btn btn-outline"
+                onclick="openModal('scheduleMeetingModal')">
+            Schedule
+        </button>
+    </div>
+
+</div>
+
+                        <div class="upcoming-meetings mt-4">
+                            <h4>Upcoming Meetings</h4>
+                            <ul class="list-group" id="meetingList">
+                                <!-- Meetings Injected Here -->
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REPORT SECTION -->
+                <section id="reportSection" class="content-section hidden">
+                    <div class="glass-panel">
+                        <h3 class="section-title"><i class="fa-solid fa-chart-pie text-purple"></i> Activity Reports
+                        </h3>
+
+                        <div id="reportContent" class="mt-2">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SETTINGS SECTION -->
+                <section id="settingsSection" class="content-section hidden">
+                    <div class="glass-panel">
+                        <h3 class="section-title"><i class="fa-solid fa-sliders text-purple"></i> Settings & Profile
+                        </h3>
+
+                        <div class="settings-grid">
+                            <div class="settings-card">
+                                <h4>Personal Information</h4>
+                                <div class="info-row"><strong>User ID:</strong> <span id="setUserId"></span></div>
+                                <div class="info-row"><strong>Name:</strong> <span id="setUserName"></span></div>
+                                <div class="info-row"><strong>Role:</strong> <span id="setUserRole"
+                                        style="text-transform: capitalize;"></span></div>
+                            </div>
+
+                            <div class="settings-card">
+                                <h4>Change Password</h4>
+                                <form onsubmit="handleChangePassword(event)">
+                                    <input type="password" id="newPass" class="form-control" placeholder="New Password"
+                                        required>
+                                    <button type="submit" class="btn btn-primary mt-2">Update Password</button>
+                                </form>
+                            </div>
+
+                            <div class="settings-card danger-zone">
+                                <h4>Account Actions</h4>
+                                <p>End your session securely.</p>
+                                <button class="btn btn-danger mt-2" onclick="handleLogout()">Logout <i
+                                        class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HELP SECTION -->
+                <section id="helpSection" class="content-section hidden">
+                    <div class="glass-panel">
+                        <h3 class="section-title"><i class="fa-solid fa-headset text-purple"></i> Help & Customer
+                            Service</h3>
+
+                        <div class="help-content">
+                            <div class="faq-box">
+                                <h4>Frequently Asked Questions</h4>
+                                <details>
+                                    <summary>How do I submit a paper?</summary>
+                                    <p>Go to the Dashboard page (as an Author) and click the "Submit Paper" button.</p>
+                                </details>
+                                <details>
+                                    <summary>How do I schedule a meeting?</summary>
+                                    <p>Navigate to the Meeting tab and select "Schedule a Meeting" to set a time and
+                                        invite members.</p>
+                                </details>
+                            </div>
+
+                            <div class="contact-box mt-4">
+                                <h4>Contact Support</h4>
+                                <p>Need further assistance? Reach out to our 24/7 support team.</p>
+                                <p><i class="fa-solid fa-envelope"></i> support@confyra.com</p>
+                                <p><i class="fa-solid fa-phone"></i> +1 (800) 123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ======================= -->
+    <!-- MODALS -->
+    <!-- ======================= -->
+
+    <!-- Submit Paper Modal -->
+    <div id="submitPaperModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('submitPaperModal')">&times;</span>
+            <h3 class="mb-3">Submit New Paper</h3>
+            <form onsubmit="handlePaperSubmit(event)">
+                <div class="form-group">
+                    <label>Paper Title</label>
+                    <input type="text" id="paperTitle" class="form-control" required placeholder="Enter paper title">
+                </div>
+                <div class="form-group mt-2">
+                    <label>Abstract / Description</label>
+                    <textarea id="paperAbstract" class="form-control" rows="4" required
+                        placeholder="Brief description of the paper"></textarea>
+                </div>
+                <div class="form-group mt-2">
+                    <label>Upload Document File</label>
+                    <input type="file" id="paperFile" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4 btn-block">Confirm Submission</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Schedule Meeting Modal -->
+    <div id="scheduleMeetingModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('scheduleMeetingModal')">&times;</span>
+            <h3 class="mb-3">Schedule a Meeting</h3>
+            <form onsubmit="handleScheduleMeeting(event)">
+                <div class="form-group">
+                    <label>Meeting Topic</label>
+                    <input type="text" id="meetingTopic" class="form-control" required placeholder="Enter topic">
+                </div>
+                <div class="form-group mt-2">
+                    <label>Date & Time</label>
+                    <input type="datetime-local" id="meetingDateTime" class="form-control" required>
+                </div>
+
+                <div class="form-group mt-2">
+    <label>Meeting Link</label>
+    <input type="url" id="meetingLink" class="form-control"
+           required placeholder="https://meet.google.com/...">
+</div>
+
+                <button type="submit" class="btn btn-primary mt-4 btn-block">Schedule Meeting</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Paper Modal -->
+    <div id="viewPaperModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewPaperModal')">&times;</span>
+            <h3 class="mb-3" id="viewPaperTitle">Paper Title</h3>
+            <p class="text-muted"><small>By: <strong id="viewPaperAuthor"></strong> | Submitted: <span
+                        id="viewPaperDate"></span></small></p>
+            <div class="form-group mt-3" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                <p id="viewPaperAbstract" style="white-space: pre-wrap; margin:0; line-height: 1.5; color: #ccc;"></p>
+            </div>
+            <div class="mt-2 text-center">
+                <a id="viewPaperDownloadBtn" href="#" target="_blank" class="btn btn-outline" style="display:none;"><i
+                        class="fa-solid fa-file-pdf"></i> Open Attached Document</a>
+            </div>
+            <div class="mt-4" style="display: flex; gap: 10px;" id="viewPaperActions">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
