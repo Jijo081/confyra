@@ -1,104 +1,161 @@
 # Confyra - Conference Management System
 
-A web-based Conference Management System for managing research paper submissions, paper reviews, and conference meetings through separate author and administrator dashboards.
+Confyra is a web-based Conference Management System developed to simplify the management of research paper submissions, paper reviews, and conference meetings.
+
+The system provides separate access for Authors and Administrators. Authors can submit research papers, upload documents, track submission status, and view meetings. Administrators can review submitted papers, accept or reject submissions, and manage conference meetings.
 
 ---
 
-## Project Preview
+## Table of Contents
 
-Confyra provides a simple platform for conference management where authors can submit research papers and track their submission status, while administrators can review papers and manage conference meetings.
+- [Project Overview](#project-overview)
+- [Features](#features)
+  - [Author Features](#author-features)
+  - [Administrator Features](#administrator-features)
+- [Paper Submission](#paper-submission)
+- [Meeting Management](#meeting-management)
+- [User Roles](#user-roles)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Database](#database)
+- [Application Workflow](#application-workflow)
+- [Screenshots](#screenshots)
+- [Installation and Setup](#installation-and-setup)
+- [How to Run](#how-to-run)
+- [Current Limitations](#current-limitations)
+- [Future Improvements](#future-improvements)
+- [Learning Outcomes](#learning-outcomes)
+- [Project Information](#project-information)
+- [License](#license)
 
-### Main Functions
+---
 
-- User registration and login
-- Author dashboard
-- Administrator dashboard
-- Research paper submission
-- Paper document upload
-- Paper review and status management
-- Instant meeting creation
-- Scheduled meeting management
-- Meeting links
-- Reports section
-- Account settings
-- Password management
+## Project Overview
+
+Conference management involves several activities such as user registration, research paper submission, paper review, conference scheduling, and meeting management.
+
+Confyra brings these activities together into a single web application.
+
+The system is designed with two main user roles:
+
+- Author
+- Administrator
+
+Authors are responsible for submitting research papers and tracking their status.
+
+Administrators are responsible for reviewing papers and managing conference meetings.
 
 ---
 
 ## Features
 
-### Author Dashboard
+### Author Features
 
-Authors can:
+Authors can perform the following operations:
 
-- Register and log in to the system
+- Register a new account
+- Log in using their registered credentials
+- Access the author dashboard
 - Submit research papers
 - Upload paper documents
 - View submitted papers
-- Track paper status
+- Track paper submission status
 - View paper details
-- View upcoming meetings
+- View available conference meetings
 - Join available meetings
 - View reports
-- Change password
-- Log out
+- Change account password
+- Log out from the application
 
-### Administrator Dashboard
+---
 
-Administrators can:
+### Administrator Features
+
+Administrators have additional management capabilities:
 
 - Log in to the administrator dashboard
 - View submitted research papers
 - Review submitted papers
-- Accept or reject papers
+- Accept research paper submissions
+- Reject research paper submissions
 - Create instant meetings
 - Schedule future meetings
 - Add meeting links
 - View conference meetings
 - View reports
 - Manage account settings
+- Change account password
+- Log out from the application
 
 ---
 
-## Paper Submission Workflow
+## Paper Submission
 
-The paper submission process follows a simple workflow:
+The paper submission module allows authors to submit their research work through the system.
+
+An author provides the following information:
+
+- Paper title
+- Paper abstract
+- Research paper document
+
+After submission, the paper is initially assigned a `Pending` status.
+
+The administrator can then review the submission and update its status.
+
+### Paper Status
+
+The system supports three paper statuses:
+
+| Status | Description |
+|--------|-------------|
+| Pending | Paper is waiting for administrator review |
+| Accepted | Paper has been accepted |
+| Rejected | Paper has been rejected |
+
+### Submission Process
 
 ```text
-Author
-   |
-   v
-Login
-   |
-   v
+Author Login
+      |
+      v
 Submit Research Paper
-   |
-   v
+      |
+      v
 Paper Status: Pending
-   |
-   v
+      |
+      v
 Administrator Review
-   |
-   +-------------------+
-   |                   |
-   v                   v
-Accepted            Rejected
+      |
+      +----------------------+
+      |                      |
+      v                      v
+   Accepted              Rejected
 
-Authors can track the current status of their submitted papers from the dashboard.
+Authors can view the current status of their submissions from the dashboard.
 
 Meeting Management
 
-Confyra provides two types of meeting management.
+Confyra provides meeting management functionality for conference administrators.
+
+There are two types of meetings available.
 
 Instant Meeting
 
 Administrators can create an instant meeting directly from the Meeting section.
 
-The system automatically creates a meeting room link and adds the meeting to the meeting list.
+When an instant meeting is created:
 
+The administrator selects the Create Meeting option.
+The system creates a meeting entry.
+A meeting room link is generated.
+The meeting appears in the meeting list.
+Users can use the Join option to open the meeting room.
 Scheduled Meeting
 
-Administrators can schedule a future meeting by providing:
+Administrators can schedule a meeting for a future date and time.
+
+The following information is required:
 
 Meeting topic
 Date and time
@@ -108,10 +165,17 @@ The scheduled meeting is then displayed in the meetings section.
 
 Meeting Room
 
-The project includes a meeting room interface for demonstration purposes.
+Confyra includes a meeting room interface for demonstration purposes.
 
-The current version does not implement real-time video and audio communication using WebRTC.
+The current version provides the meeting room interface and meeting navigation, but real-time audio and video communication using WebRTC has not been implemented.
 
+User Roles
+
+Confyra uses two primary roles.
+
+Role	Main Responsibilities
+Author	Submit papers, track submissions, view meetings and reports
+Administrator	Review papers, manage submissions and manage meetings
 Technology Stack
 Frontend
 HTML5
@@ -146,26 +210,29 @@ Confyra/
 └── dashboard_bg.png
 File Description
 File	Description
-app.py	Flask backend, API routes and database operations
-index.html	Main application interface
-script.js	Frontend functionality and API communication
-styles.css	Application styling
-requirements.txt	Python dependencies
-conference_bg.png	Login and conference background image
+app.py	Flask backend, API routes, authentication and database operations
+index.html	Main HTML structure and application interface
+script.js	Frontend logic, API requests and user interactions
+styles.css	Styling, layout, forms, dashboard and responsive interface
+requirements.txt	Python package dependencies
+conference_bg.png	Conference background image
 dashboard_bg.png	Dashboard background image
-.gitignore	Files excluded from Git
+.gitignore	Files and folders excluded from Git
 Database
 
-Confyra uses SQLite as its database.
+Confyra uses SQLite for local data storage.
 
-The database stores information related to:
+The database is automatically created when the Flask application starts.
+
+The database contains information related to:
 
 Users
 Research papers
 Paper submission status
 Meetings
+Meeting links
 
-The local SQLite database file is excluded from the GitHub repository using .gitignore.
+The local SQLite database file is excluded from GitHub using .gitignore.
 
 Application Workflow
 Author Workflow
@@ -177,142 +244,278 @@ Login
    v
 Author Dashboard
    |
-   +---- Submit Paper
-   |
-   +---- View Papers
-   |
-   +---- Track Status
-   |
-   +---- View Meetings
-   |
-   +---- Join Meeting
-   |
-   +---- Reports
-   |
-   +---- Settings
+   +----------------------+
+   |                      |
+   v                      v
+Submit Paper          View Papers
+   |                      |
+   v                      v
+Pending Status       Track Status
+                          |
+                          v
+                    View Meetings
+                          |
+                          v
+                     Join Meeting
 Administrator Workflow
 Login
    |
    v
 Administrator Dashboard
    |
-   +---- View Papers
-   |
-   +---- Review Papers
-   |        |
-   |        +---- Accept
-   |        |
-   |        +---- Reject
-   |
-   +---- Create Instant Meeting
-   |
-   +---- Schedule Meeting
-   |
-   +---- View Meetings
-   |
-   +---- Reports
-   |
-   +---- Settings
+   +----------------------+
+   |                      |
+   v                      v
+View Papers          Manage Meetings
+   |                      |
+   v                      +------------------+
+Review Paper              |                  |
+   |                      v                  v
+   +----------+       Instant            Scheduled
+   |          |       Meeting             Meeting
+   v          v
+Accept     Reject
 Screenshots
 
-Screenshots can be added to this section to demonstrate the main features of the application.
+Screenshots can be added to this section to demonstrate the main features of Confyra.
 
+Create a folder named:
+
+screenshots/
+
+Then place the application screenshots inside it.
+
+Recommended screenshot structure:
+
+screenshots/
+│
+├── login.png
+├── author-dashboard.png
+├── paper-submission.png
+├── admin-dashboard.png
+├── paper-review.png
+├── meetings.png
+├── schedule-meeting.png
+├── meeting-room.png
+├── reports.png
+└── settings.png
 Login Page
 
-Add your login page screenshot here.
-
-![Confyra Login Page](screenshots/login.png)
 Author Dashboard
-![Author Dashboard](screenshots/author-dashboard.png)
+
 Paper Submission
-![Paper Submission](screenshots/paper-submission.png)
+
 Administrator Dashboard
-![Administrator Dashboard](screenshots/admin-dashboard.png)
+
 Paper Review
-![Paper Review](screenshots/paper-review.png)
+
 Meeting Management
-![Meeting Management](screenshots/meetings.png)
+
 Schedule Meeting
-![Schedule Meeting](screenshots/schedule-meeting.png)
+
 Meeting Room
-![Meeting Room](screenshots/meeting-room.png)
-How to Run Locally
-1. Clone the Repository
+
+Reports
+
+Settings
+
+Installation and Setup
+
+Follow the steps below to run Confyra on a local computer.
+
+Prerequisites
+
+Make sure the following software is installed:
+
+Python 3
+Git
+Visual Studio Code
+A modern web browser
+Clone the Repository
+
+Open a terminal and run:
+
 git clone https://github.com/Jijo081/confyra.git
-2. Open the Project Directory
+
+Move into the project directory:
+
 cd confyra
-3. Create a Virtual Environment
+Create a Virtual Environment
 
 For Windows:
 
 python -m venv venv
-4. Activate the Virtual Environment
-venv\Scripts\activate
-5. Install Dependencies
-pip install -r requirements.txt
-6. Start the Flask Server
-python app.py
-7. Open the Application
 
-Open the following address in your browser:
+Activate the virtual environment:
+
+venv\Scripts\activate
+Install Dependencies
+
+Install the required Python packages using:
+
+pip install -r requirements.txt
+
+The main dependencies are:
+
+Flask
+Flask-CORS
+How to Run
+
+Start the Flask application:
+
+python app.py
+
+The application will start on the local Flask server.
+
+Open a web browser and visit:
 
 http://127.0.0.1:5000
 
-The SQLite database will be created automatically when the application starts.
+The SQLite database will be created automatically when the application is started.
 
-Example User Roles
+Application Sections
 
-Confyra supports two user roles:
+The Confyra dashboard contains several sections.
 
-Role	Access
-Author	Paper submission, paper tracking, meetings and reports
-Administrator	Paper review, meeting management, reports and settings
+Dashboard
+
+Provides an overview of the user's conference activities.
+
+Inbox
+
+Provides access to received and sent communication.
+
+Calendar
+
+Provides a section for conference-related scheduling.
+
+Jobs
+
+Provides the jobs section available in the dashboard interface.
+
+Candidates
+
+Provides the candidates section available in the dashboard interface.
+
+Reports
+
+Displays conference-related report information.
+
+Settings
+
+Allows users to manage account-related settings, including password changes.
+
+Meetings
+
+Provides access to instant and scheduled conference meetings.
+
 Current Limitations
 
-The current version is designed mainly for academic and portfolio purposes.
+The current version of Confyra is primarily developed for academic and portfolio purposes.
 
-Some features are not implemented yet:
+The following features are not fully implemented:
 
 Password hashing
 Session-based authentication
 Email notifications
-Reviewer assignment
-Real-time video conferencing
+Dedicated reviewer management
+Advanced paper search and filtering
+Real-time video and audio communication
 WebRTC integration
-Cloud file storage
+Cloud-based document storage
 Advanced analytics
-Email-based paper notifications
+Production deployment configuration
 Future Improvements
 
-Possible future improvements include:
+The project can be extended with the following features:
 
-Secure authentication using password hashing
-Session or token-based authentication
-Reviewer management
-Email notifications
-Advanced paper filtering and search
-Real-time WebRTC video conferencing
+Authentication
+Secure password hashing
+Session-based authentication
+Token-based authentication
+Improved access control
+Paper Management
+Reviewer assignment
+Multiple reviewers
+Paper search and filtering
+Review comments
+Review history
+Automated email notifications
+Meeting Management
+Real-time video conferencing
+WebRTC integration
+Screen sharing
+Audio controls
+Participant management
 Calendar integration
-Cloud-based document storage
-Conference analytics dashboard
-Online deployment
+Storage
+Cloud-based paper storage
+Secure document access
+File size and type validation
+Analytics
+Conference statistics
+Paper submission statistics
+Acceptance and rejection analysis
+Meeting participation statistics
+Deployment
+Cloud deployment
+Production database
+HTTPS configuration
+Environment-based configuration
 Learning Outcomes
 
-This project provided practical experience in:
+Developing Confyra provided practical experience in several areas of software development.
 
-Full-stack web development
-Python Flask development
-REST API development
-SQLite database management
-File upload handling
-JavaScript and API integration
-HTML and CSS development
-Role-based application workflows
-Git and GitHub
-Project structure and version control
+Web Development
+HTML structure
+CSS styling
+JavaScript programming
+Frontend and backend integration
+Backend Development
+Python programming
+Flask application development
+REST API creation
+Request and response handling
+Database Management
+SQLite
+Database tables
+SQL queries
+CRUD operations
+Application Development
+User registration
+Login functionality
+Role-based workflows
+File uploads
+Paper submission
+Meeting management
+Version Control
+Git
+GitHub
+Repository management
+Branch management
+Commit and push workflow
+Project Information
+
+Project Name: Confyra
+
+Project Type: Conference Management System
+
+Development Type: Academic / Portfolio Project
+
+Frontend: HTML, CSS, JavaScript
+
+Backend: Python Flask
+
+Database: SQLite
+
+Version Control: Git and GitHub
+
 GitHub Repository
 
+The complete project source code is available on GitHub.
+
 Repository:
+
 https://github.com/Jijo081/confyra
 
 Developer
@@ -322,6 +525,7 @@ Jijo
 Computer Science and Engineering Student
 
 GitHub:
+
 https://github.com/Jijo081
 
 License
