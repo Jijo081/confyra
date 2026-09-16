@@ -86,17 +86,17 @@ Accepted            Rejected
 
 Authors can track the current status of their submitted papers from the dashboard.
 
-##Meeting Management
+Meeting Management
 
 Confyra provides two types of meeting management.
 
-##Instant Meeting
+Instant Meeting
 
 Administrators can create an instant meeting directly from the Meeting section.
 
 The system automatically creates a meeting room link and adds the meeting to the meeting list.
 
-##Scheduled Meeting
+Scheduled Meeting
 
 Administrators can schedule a future meeting by providing:
 
@@ -106,33 +106,30 @@ Meeting link
 
 The scheduled meeting is then displayed in the meetings section.
 
-##Meeting Room
+Meeting Room
 
 The project includes a meeting room interface for demonstration purposes.
 
 The current version does not implement real-time video and audio communication using WebRTC.
 
-##Technology Stack
-
--Frontend
+Technology Stack
+Frontend
 HTML5
 CSS3
 JavaScript
 Font Awesome
 Google Fonts
--Backend
+Backend
 Python
 Flask
 Flask-CORS
--Database
+Database
 SQLite
--Development Tools
+Development Tools
 Visual Studio Code
 Git
 GitHub
-
-##Project Structure
-
+Project Structure
 Confyra/
 │
 ├── .gitignore
@@ -147,37 +144,31 @@ Confyra/
 │
 ├── conference_bg.png
 └── dashboard_bg.png
-
-##File Description
-
-File	               Description
-
-app.py	               Flask backend, API routes and database operations
-index.html	           Main application interface
-script.js	           Frontend functionality and API communication
-styles.css	           Application styling
-requirements.txt	   Python dependencies
-conference_bg.png	   Login and conference background image
-dashboard_bg.png	   Dashboard background image
-.gitignore	           Files excluded from Git
-
-##Database
+File Description
+File	Description
+app.py	Flask backend, API routes and database operations
+index.html	Main application interface
+script.js	Frontend functionality and API communication
+styles.css	Application styling
+requirements.txt	Python dependencies
+conference_bg.png	Login and conference background image
+dashboard_bg.png	Dashboard background image
+.gitignore	Files excluded from Git
+Database
 
 Confyra uses SQLite as its database.
 
 The database stores information related to:
 
--Users
--Research papers
--Paper submission status
--Meetings
+Users
+Research papers
+Paper submission status
+Meetings
 
 The local SQLite database file is excluded from the GitHub repository using .gitignore.
 
-##Application Workflow
-
+Application Workflow
 Author Workflow
-
 Register
    |
    v
@@ -222,43 +213,39 @@ Administrator Dashboard
    +---- Reports
    |
    +---- Settings
-
-##Screenshots
+Screenshots
 
 Screenshots can be added to this section to demonstrate the main features of the application.
 
-##Login Page
+Login Page
 
 Add your login page screenshot here.
 
 ![Confyra Login Page](screenshots/login.png)
-
-##Author Dashboard
+Author Dashboard
 ![Author Dashboard](screenshots/author-dashboard.png)
-
-##Paper Submission
+Paper Submission
 ![Paper Submission](screenshots/paper-submission.png)
 Administrator Dashboard
 ![Administrator Dashboard](screenshots/admin-dashboard.png)
-
-##Paper Review
-
+Paper Review
 ![Paper Review](screenshots/paper-review.png)
 Meeting Management
 ![Meeting Management](screenshots/meetings.png)
 Schedule Meeting
 ![Schedule Meeting](screenshots/schedule-meeting.png)
-
-##Meeting Room
+Meeting Room
 ![Meeting Room](screenshots/meeting-room.png)
-
-##How to Run Locally
+How to Run Locally
 1. Clone the Repository
 git clone https://github.com/Jijo081/confyra.git
 2. Open the Project Directory
 cd confyra
 3. Create a Virtual Environment
-For Windows:  python -m venv venv
+
+For Windows:
+
+python -m venv venv
 4. Activate the Virtual Environment
 venv\Scripts\activate
 5. Install Dependencies
@@ -273,66 +260,62 @@ http://127.0.0.1:5000
 
 The SQLite database will be created automatically when the application starts.
 
-## Example User Roles
+Example User Roles
 
 Confyra supports two user roles:
 
-Role	              Access
-Author	              Paper submission, paper tracking, meetings and reports
-Administrator	      Paper review, meeting management, reports and settings
-
-##Current Limitations
+Role	Access
+Author	Paper submission, paper tracking, meetings and reports
+Administrator	Paper review, meeting management, reports and settings
+Current Limitations
 
 The current version is designed mainly for academic and portfolio purposes.
 
 Some features are not implemented yet:
 
--Password hashing
--Session-based authentication
--Email notifications
--Reviewer assignment
--Real-time video conferencing
--WebRTC integration
---Cloud file storage
--Advanced analytics
--Email-based paper notifications
-
-##Future Improvements
+Password hashing
+Session-based authentication
+Email notifications
+Reviewer assignment
+Real-time video conferencing
+WebRTC integration
+Cloud file storage
+Advanced analytics
+Email-based paper notifications
+Future Improvements
 
 Possible future improvements include:
 
--Secure authentication using password hashing
--Session or token-based authentication
--Reviewer management
--Email notifications
--Advanced paper filtering and search
--Real-time WebRTC video conferencing
--Calendar integration
--Cloud-based document storage
--Conference analytics dashboard
--Online deployment
-
-##Learning Outcomes
+Secure authentication using password hashing
+Session or token-based authentication
+Reviewer management
+Email notifications
+Advanced paper filtering and search
+Real-time WebRTC video conferencing
+Calendar integration
+Cloud-based document storage
+Conference analytics dashboard
+Online deployment
+Learning Outcomes
 
 This project provided practical experience in:
 
--Full-stack web development
--Python Flask development
--REST API development
--SQLite database management
--File upload handling
--JavaScript and API integration
--HTML and CSS development
--Role-based application workflows
--Git and GitHub
--Project structure and version control
-
-##GitHub Repository
+Full-stack web development
+Python Flask development
+REST API development
+SQLite database management
+File upload handling
+JavaScript and API integration
+HTML and CSS development
+Role-based application workflows
+Git and GitHub
+Project structure and version control
+GitHub Repository
 
 Repository:
 https://github.com/Jijo081/confyra
 
-##Developer
+Developer
 
 Jijo
 
@@ -341,6 +324,6 @@ Computer Science and Engineering Student
 GitHub:
 https://github.com/Jijo081
 
-##License
+License
 
 This project was developed for academic and portfolio purposes.
